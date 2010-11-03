@@ -42,8 +42,9 @@ util.Mutex.prototype.process = function() {
         this.isLocked = true;
         try {
             while (this.queue.length > 0) {
+                var spec = this.queue.shift();
                 try {
-                    this.queue.shift().apply();
+                    spec.apply();
                 } catch (ex) {
                     this.onException(ex, spec.context, spec.fun, spec.args);
                 }
